@@ -9,8 +9,8 @@ public class Request {
     public static String makeARequest(String[] args) throws ParseException {
         String URL = "http://www.cbr.ru/scripts/XML_daily.asp";
         Date date = new Date();
-        Optins optins = new Optins();
-        date = optins.getDate(args);
+        Options options = new Options();
+        date = options.getDate(args);
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 
         String stringDate = dateFormat.format(date);

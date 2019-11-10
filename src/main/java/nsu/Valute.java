@@ -5,6 +5,8 @@ import java.util.List;
 
 public class Valute {
 
+    private Long id;
+    private String date;
     private String charCode, nominal, name, value;
 
     public final List<String> valutes = new ArrayList<String>();
@@ -33,6 +35,14 @@ public class Valute {
 
     public String getNominal() {
         return nominal;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
     }
 
     public String setCharCode(String charCode) {
@@ -64,6 +74,14 @@ public class Valute {
         return value;
     }
 
-
-
+    @Override
+    public String toString() {
+        return "Valute{" +
+                "charCode='" + charCode + '\'' +
+                ", nominal='" + nominal + '\'' +
+                ", name='" + name + '\'' +
+                ", value='" + value + '\'' +
+                ", valutes=" + valutes +
+                '}';
+    }
 }

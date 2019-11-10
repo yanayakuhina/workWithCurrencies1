@@ -14,9 +14,7 @@ public class ValuteWriter {
     public static void write(String[] args) throws ParseException, IOException, SAXException, ParserConfigurationException {
         String s = Request.makeARequest(args);
         Map<String, String[]> states = new HashMap<String, String[]>();
-        for (String x : Dom.parse(s).get(Optins.getCurrencyID(args))){
-            System.out.println(x);
-        }
+
 
 
 
