@@ -1,5 +1,6 @@
 package nsu;
 
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -8,13 +9,19 @@ public class Request {
 
     public static String makeARequest(String[] args) throws ParseException {
         String URL = "http://www.cbr.ru/scripts/XML_daily.asp";
-        Date date = new Date();
+        String stringDate = null;
         Options options = new Options();
-        date = options.getDate1(args);
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        try {
+            String date = options.getDate1(args);
+            SimpleDateFormat format = new SimpleDateFormat();
+            format.applyPattern("yyyy-MM-dd");
+            Date docDate = format.parse(date);
+            SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+            stringDate = dateFormat.format(docDate);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
-        String stringDate = dateFormat.format(date);
-        String stringXml = HttpClient.doGet(URL,"date_req", stringDate);
-        return stringXml;
+        return HttpClient.doGet(URL,"date_req", stringDate);
     }
 }

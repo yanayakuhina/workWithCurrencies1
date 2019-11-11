@@ -3,7 +3,10 @@ package nsu;
 import com.sun.xml.internal.bind.v2.model.core.ID;
 
 import java.sql.*;
+import java.text.NumberFormat;
+import java.text.ParseException;
 import java.util.Date;
+import java.util.Locale;
 import java.util.Optional;
 
 public class Database {
@@ -66,16 +69,18 @@ public class Database {
         }
         try (Connection connection =  DriverManager.getConnection(URL, USER, PASSWORD)) {
             PreparedStatement statement = connection
-                    .prepareStatement("INSERT INTO valute(id, valute_date, car_code, nominal, name, value,) VALUES(?, ?, ?, ?, ?, ?)");
-            statement.setString(1, ID);
-            statement.setString(2, date);
-            statement.setString(3, valute.getCharCode());
-            statement.setString(4, valute.getNominal());
-            statement.setString(5, valute.getName());
-            statement.setString(6, valute.getValue());
-            System.out.println("Hello");
+                    .prepareStatement("INSERT INTO valute(valute_date, char_code, nominal, name, value) VALUES (?, ?, ?, ?, ?)");
+            statement.setString(1, date);
+            statement.setString(2, valute.getCharCode());
+            statement.setString(3, valute.getNominal());
+            statement.setString(4, valute.getName());
+            NumberFormat format = NumberFormat.getInstance(Locale.FRANCE);
+            Number number = format.parse(valute.getValue());
+            statement.setDouble(5, number.doubleValue());
+            int rows = statement.executeUpdate();
+            System.out.println("Изменены " + rows + " строк");
 
-        } catch (SQLException e) {
+        } catch (SQLException | ParseException e) {
             e.printStackTrace();
         }
     }

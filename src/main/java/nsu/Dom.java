@@ -66,7 +66,7 @@ public class Dom {
         }
         throw new RuntimeException("Не найден узел в DOM дереве для валюты " + currencyID);
     }
-    public static Valute parseForDatabase(String stringXml, String[] args) throws ParserConfigurationException, IOException, SAXException, ParseException {
+    public static void parseForDatabase(String stringXml, String[] args) throws ParserConfigurationException, IOException, SAXException, ParseException {
         String currencyID = Options.getCurrencyID1(args);
         DocumentBuilderFactory f = DocumentBuilderFactory.newInstance();
 
@@ -97,10 +97,10 @@ public class Dom {
                 if (node.getNodeName().equals("Nominal")) {
                     valute.setNominal(node.getTextContent());
                 }
-                insert(Options.getDate1(args),valute );
+
             }
+            insert(Options.getDate1(args),valute );
 
         }
-        throw new RuntimeException("Не найден узел в DOM дереве для валюты " + currencyID);
     }
 }

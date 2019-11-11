@@ -15,23 +15,17 @@ public class Main {
 
 
     public static void main(String[] args) throws ParseException, IOException, SAXException, ParserConfigurationException {
-//        ValuteWriter.write(args);
-//        Valute valute = Dom.parse(Request.makeARequest(args), args);
-//        System.out.println(valute);
+        ValuteWriter.write(args);
 
-        Date date = new Date();
-        Options options = new Options();
-        String cur = options.getCurrencyID1(args);
-        date = options.getDate1(args);
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-
-        String stringDate = dateFormat.format(date);
-        Optional<Valute> valute = Database.select(stringDate,cur );
-
-        Optional<Valute> valute1 = Database.select("2019-11-10", "RUB");
-        System.out.println(valute1);
+        String date = Options.getDate1(args);
+        Optional<Valute> optionalValute = Database.select(date, "RUB");
+        if (optionalValute.isPresent()) {
+            Valute v = optionalValute.get();
+            System.out.println(v);
+        } else {
+            Valute v = Dom.parse(Request.makeARequest(args), args);
+            System.out.println(v);
+        }
 
     }
-
-
 }

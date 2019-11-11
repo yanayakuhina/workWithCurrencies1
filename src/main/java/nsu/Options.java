@@ -1,5 +1,6 @@
 package nsu;
 
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -14,18 +15,33 @@ public class Options {
         }
     return s;
     }
-    static String getDate1(String[] args) throws ParseException {
+    static String getDate1(String[] args) throws ParseException, IOException {
         int x = Options.list(args).indexOf("-d");
         String s = Options.list(args).get(x+1);
-        SimpleDateFormat format = new SimpleDateFormat();
-        format.applyPattern("yyyy-MM-dd");
-        Date docDate= format.parse(s);
-        return docDate;
+        if(s == ""){
+            throw new IOException("Идентификатор пустой валюты\n");
+        }
+        else {
+            SimpleDateFormat format = new SimpleDateFormat();
+            format.applyPattern("yyyy-MM-dd");
+            Date docDate = format.parse(s);
+            return s;
+        }
     }
-    static String getNameFile(String[] args){
+    static String getNameFile(String[] args) throws IOException {
         int x = Options.list(args).indexOf("-f");
-        return Options.list(args).get(x+1);
+        if (Options.list(args).get(x+1) == null){
+            throw new IOException("Нет даты\n" );
+        }
+        else{
+
+            SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+            return Options.list(args).get(x + 1);
+        }
+
     }
+
+
     public static String getCurrencyID1(String[] args){
         int x = Options.list(args).indexOf("-c");
         return Options.list(args).get(x+1);
