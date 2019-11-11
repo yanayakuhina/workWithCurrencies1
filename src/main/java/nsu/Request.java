@@ -10,7 +10,7 @@ public class Request {
         String URL = "http://www.cbr.ru/scripts/XML_daily.asp";
         Date date = new Date();
         Options options = new Options();
-        date = options.getDate(args);
+        date = options.getDate1(args);
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 
         String stringDate = dateFormat.format(date);

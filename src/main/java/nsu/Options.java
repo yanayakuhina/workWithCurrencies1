@@ -7,8 +7,6 @@ import java.util.Date;
 
 public class Options {
 
-
-
     static ArrayList<String> list(String[] args){
         ArrayList<String> s = new ArrayList<String>();
         for(String str: args){
@@ -16,7 +14,7 @@ public class Options {
         }
     return s;
     }
-    static Date getDate(String[] args) throws ParseException {
+    static String getDate1(String[] args) throws ParseException {
         int x = Options.list(args).indexOf("-d");
         String s = Options.list(args).get(x+1);
         SimpleDateFormat format = new SimpleDateFormat();
@@ -28,8 +26,12 @@ public class Options {
         int x = Options.list(args).indexOf("-f");
         return Options.list(args).get(x+1);
     }
-    public static String getCurrencyID(String[] args){
+    public static String getCurrencyID1(String[] args){
         int x = Options.list(args).indexOf("-c");
         return Options.list(args).get(x+1);
     }
+
+
+
+
 }
