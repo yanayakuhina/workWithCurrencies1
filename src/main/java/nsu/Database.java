@@ -73,7 +73,7 @@ public class Database {
             statement.setString(4, valute.getNominal());
             statement.setString(5, valute.getName());
             statement.setString(6, valute.getValue());
-
+            System.out.println("Hello");
 
         } catch (SQLException e) {
             e.printStackTrace();
