@@ -22,20 +22,15 @@ public class ValuteWriter {
         File file = new File(sFile);
 
         try {
-            //проверяем, что если файл не существует то создаем его
             if (!file.exists()) {
                 file.createNewFile();
             }
 
-            //PrintWriter обеспечит возможности записи в файл
             PrintWriter out = new PrintWriter(file.getAbsoluteFile());
 
             try {
-                //Записываем текст у файл
                 out.print(result);
             } finally {
-                //После чего мы должны закрыть файл
-                //Иначе файл не запишется
                 out.close();
             }
         } catch (IOException e) {
