@@ -29,7 +29,7 @@ public class Database {
         }
     }
 
-    public static Optional<Valute> select(String date, String charCode){
+    public static Valute select(String date, String charCode){
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
         } catch (ClassNotFoundException e) {
@@ -51,7 +51,10 @@ public class Database {
                 valute.setValue(resultSet.getString("value"));
                 valute.setDate(resultSet.getString("valute_date"));
 
-                return Optional.of(valute);
+                return valute;
+            }
+            else {
+                return null;
             }
 
 
@@ -59,7 +62,7 @@ public class Database {
             System.out.println("Could not connect to database: " + e.getMessage());
             e.printStackTrace();
         }
-        return Optional.empty();
+    return null;
     }
     public static void insert(String date, Valute valute){
         try {
@@ -78,7 +81,7 @@ public class Database {
             Number number = format.parse(valute.getValue());
             statement.setDouble(5, number.doubleValue());
             int rows = statement.executeUpdate();
-            System.out.println("Изменены " + rows + " строк");
+
 
         } catch (SQLException | ParseException e) {
             e.printStackTrace();

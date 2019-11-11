@@ -15,17 +15,17 @@ public class Main {
 
 
     public static void main(String[] args) throws ParseException, IOException, SAXException, ParserConfigurationException {
-        ValuteWriter.write(args);
-
         String date = Options.getDate1(args);
-        Optional<Valute> optionalValute = Database.select(date, "RUB");
-        if (optionalValute.isPresent()) {
-            Valute v = optionalValute.get();
-            System.out.println(v);
+        String cur = Options.getCurrencyID1(args);
+        Valute optionalValute = Database.select(date, cur);
+        if (optionalValute != null) {
+            Valute v = optionalValute;
+            System.out.println(v.getName());
+            ValuteWriter.write(args, v);
         } else {
             Valute v = Dom.parse(Request.makeARequest(args), args);
-            System.out.println(v);
+            System.out.println(v.getName());
+            ValuteWriter.write(args, v);
         }
-
     }
 }

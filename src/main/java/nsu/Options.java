@@ -34,20 +34,17 @@ public class Options {
             throw new IOException("Нет даты\n" );
         }
         else{
-
-            SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
             return Options.list(args).get(x + 1);
         }
-
     }
-
-
-    public static String getCurrencyID1(String[] args){
+    public static String getCurrencyID1(String[] args) throws IOException {
         int x = Options.list(args).indexOf("-c");
-        return Options.list(args).get(x+1);
+
+        if (Options.list(args).get(x+1) == null){
+            throw new IOException("Ошибка\n" );
+        }
+        else{
+            return Options.list(args).get(x + 1);
+        }
     }
-
-
-
-
 }

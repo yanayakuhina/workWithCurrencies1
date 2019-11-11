@@ -18,11 +18,6 @@ import static nsu.Database.*;
 
 public class Dom {
 
-    public String charCode;
-    private String value;
-    // Map<String, String[]>
-
-
     public static Valute parse(String stringXml, String[] args) throws ParserConfigurationException, IOException, SAXException {
         String currencyID = Options.getCurrencyID1(args);
         DocumentBuilderFactory f = DocumentBuilderFactory.newInstance();
@@ -46,19 +41,15 @@ public class Dom {
                         valute.setCharCode(node.getTextContent());
                     }
                 }
-
-
                 if (node.getNodeName().equals("Value")) {
                     valute.setValue(node.getTextContent());
                 }
-
                 if (node.getNodeName().equals("Name")) {
                     valute.setName(node.getTextContent());
                 }
                 if (node.getNodeName().equals("Nominal")) {
                     valute.setNominal(node.getTextContent());
                 }
-
             }
             if (x) {
                 return valute;
@@ -86,21 +77,17 @@ public class Dom {
                 if (node.getNodeName().equals("CharCode")) {
                     valute.setCharCode(node.getTextContent());
                 }
-
                 if (node.getNodeName().equals("Value")) {
                     valute.setValue(node.getTextContent());
                 }
-
                 if (node.getNodeName().equals("Name")) {
                     valute.setName(node.getTextContent());
                 }
                 if (node.getNodeName().equals("Nominal")) {
                     valute.setNominal(node.getTextContent());
                 }
-
             }
-            insert(Options.getDate1(args),valute );
-
+            Database.insert(Options.getDate1(args),valute);
         }
     }
 }
