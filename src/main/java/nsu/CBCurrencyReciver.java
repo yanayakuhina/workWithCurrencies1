@@ -40,7 +40,7 @@ public class CBCurrencyReciver implements CurrencyReciver {
                     }
                 }
                 if (node.getNodeName().equals("Value")) {
-                    valute.setValue(node.getTextContent());
+                    valute.setValue(node.getTextContent()).replace(",", ".");
                 }
                 if (node.getNodeName().equals("Name")) {
                     valute.setName(node.getTextContent());
