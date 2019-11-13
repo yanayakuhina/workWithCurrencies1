@@ -7,20 +7,16 @@ import java.util.Date;
 
 public class Request {
 
-    public static String makeARequest(String[] args) throws ParseException {
+    public static String makeARequest(String date) throws ParseException {
         String URL = "http://www.cbr.ru/scripts/XML_daily.asp";
         String stringDate = null;
         Options options = new Options();
-        try {
-            String date = options.getDate1(args);
-            SimpleDateFormat format = new SimpleDateFormat();
-            format.applyPattern("yyyy-MM-dd");
-            Date docDate = format.parse(date);
-            SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-            stringDate = dateFormat.format(docDate);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+
+        SimpleDateFormat format = new SimpleDateFormat();
+        format.applyPattern("yyyy-MM-dd");
+        Date docDate = format.parse(date);
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        stringDate = dateFormat.format(docDate);
 
         return HttpClient.doGet(URL,"date_req", stringDate);
     }

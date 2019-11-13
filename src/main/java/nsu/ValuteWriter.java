@@ -20,12 +20,10 @@ public class ValuteWriter {
         String sFile = Options.getNameFile(args);
         String result = valute.getNominal() + " " + valute.getName() + " равен " + valute.getValue() + " Российских рубля.";
         File file = new File(sFile);
-
         try {
             if (!file.exists()) {
                 file.createNewFile();
             }
-
             PrintWriter out = new PrintWriter(file.getAbsoluteFile());
 
             try {

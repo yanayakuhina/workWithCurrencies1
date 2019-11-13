@@ -8,12 +8,15 @@ import java.util.Date;
 
 public class Options {
 
-    static ArrayList<String> list(String[] args){
+    static ArrayList<String> list(String[] args) throws IOException {
         ArrayList<String> s = new ArrayList<String>();
         for(String str: args){
             s.add(str);
         }
-    return s;
+        if (s.size() != 6 & s.size() !=2){
+            throw new IOException(String.valueOf(s.size()));
+        }
+        else {return s;}
     }
     static String getDate1(String[] args) throws ParseException, IOException {
         int x = Options.list(args).indexOf("-d");
@@ -46,5 +49,15 @@ public class Options {
         else{
             return Options.list(args).get(x + 1);
         }
+    }
+    public static String dateInsert(String[] args) throws IOException {
+        int x = Options.list(args).indexOf("-d");
+        if (args.length == 2) {
+            return Options.list(args).get(x + 1);
+        }
+        if (Options.list(args).get(x+1) == null){
+            throw new IOException("Ошибка\n" );
+        }
+        return null;
     }
 }

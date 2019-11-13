@@ -1,4 +1,5 @@
 package nsu;
+
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -12,9 +13,10 @@ import java.io.IOException;
 import java.io.StringReader;
 import java.text.ParseException;
 
+public class CBCurrencyReciver implements CurrencyReciver {
+    @Override
+    public Valute getCurrencyByDateAndCode(String date, String currencyID) throws ParseException, ParserConfigurationException, IOException, SAXException {
 
-public class Dom {
-    public static void parseForDatabase(String date) throws ParserConfigurationException, IOException, SAXException, ParseException {
         String  stringXml = Request.makeARequest(date);
         DocumentBuilderFactory f = DocumentBuilderFactory.newInstance();
 
@@ -23,7 +25,7 @@ public class Dom {
         Document document = builder.parse(is);
 
         NodeList valuteElement = document.getDocumentElement().getElementsByTagName("Valute");
-
+        boolean x = false;
         for (int i = 0; i < valuteElement.getLength(); i++) {
             Node valutelist = valuteElement.item(i);
             NodeList nodeList = valutelist.getChildNodes();
@@ -32,7 +34,10 @@ public class Dom {
                 Node node = nodeList.item(j);
 
                 if (node.getNodeName().equals("CharCode")) {
-                    valute.setCharCode(node.getTextContent());
+                    if (node.getTextContent().equals(currencyID)) {
+                        x = true;
+                        valute.setCharCode(node.getTextContent());
+                    }
                 }
                 if (node.getNodeName().equals("Value")) {
                     valute.setValue(node.getTextContent());
@@ -44,7 +49,11 @@ public class Dom {
                     valute.setNominal(node.getTextContent());
                 }
             }
-            Insert.insert(date,valute);
+            if (x) {
+                return valute;
+            }
         }
-    }
+            throw new RuntimeException("Не найден узел в DOM дереве для валюты " + currencyID);
+        }
 }
+
