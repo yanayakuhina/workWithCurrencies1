@@ -27,12 +27,13 @@ public class Insert {
             statement.setString(2, valute.getCharCode());
             statement.setString(3, valute.getNominal());
             statement.setString(4, valute.getName());
-
-            statement.setString(5, valute.getValue());
+            NumberFormat format = NumberFormat.getInstance(Locale.FRANCE);
+            Number number = format.parse(valute.getValue());
+            statement.setDouble(5, number.doubleValue());
             int rows = statement.executeUpdate();
 
 
-        } catch (SQLException e) {
+        } catch (SQLException | ParseException e) {
             e.printStackTrace();
         }
     }

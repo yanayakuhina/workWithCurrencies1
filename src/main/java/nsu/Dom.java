@@ -35,7 +35,7 @@ public class Dom {
                     valute.setCharCode(node.getTextContent());
                 }
                 if (node.getNodeName().equals("Value")) {
-                    valute.setValue(node.getTextContent()).replace(",", ".");
+                    valute.setValue(node.getTextContent());
                 }
                 if (node.getNodeName().equals("Name")) {
                     valute.setName(node.getTextContent());

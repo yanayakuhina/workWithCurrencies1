@@ -13,11 +13,11 @@ import java.io.IOException;
 import java.io.StringReader;
 import java.text.ParseException;
 
-public class CBCurrencyReciver implements CurrencyReciver {
-    @Override
-    public Valute getCurrencyByDateAndCode(String date, String currencyID) throws ParseException, ParserConfigurationException, IOException, SAXException {
+class CBCurrencyReciver implements CurrencyReciver  {
 
-        String  stringXml = Request.makeARequest(date);
+    public  Valute getCurrencyByDateAndCode(String date, String currencyID) throws ParseException, ParserConfigurationException, IOException, SAXException {
+        System.out.println(currencyID);
+        String stringXml = Request.makeARequest(date);
         DocumentBuilderFactory f = DocumentBuilderFactory.newInstance();
 
         DocumentBuilder builder = f.newDocumentBuilder();
@@ -40,7 +40,7 @@ public class CBCurrencyReciver implements CurrencyReciver {
                     }
                 }
                 if (node.getNodeName().equals("Value")) {
-                    valute.setValue(node.getTextContent()).replace(",", ".");
+                    valute.setValue(node.getTextContent());
                 }
                 if (node.getNodeName().equals("Name")) {
                     valute.setName(node.getTextContent());
@@ -49,11 +49,13 @@ public class CBCurrencyReciver implements CurrencyReciver {
                     valute.setNominal(node.getTextContent());
                 }
             }
+
             if (x) {
                 return valute;
             }
         }
-            throw new RuntimeException("Не найден узел в DOM дереве для валюты " + currencyID);
-        }
+        throw new RuntimeException("Не найден узел в DOM дереве для валюты " + currencyID);
+    }
 }
+
 

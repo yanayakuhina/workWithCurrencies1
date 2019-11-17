@@ -16,17 +16,15 @@ import java.text.NumberFormat;
 import java.text.ParseException;
 import java.util.Locale;
 
-public class BDCurrencyReciver implements CurrencyReciver {
+public class BDCurrencyReciver extends CBCurrencyReciver implements CurrencyReciver {
     private static final String NAME = "SG15DDhe11";
     private static final String URL = "jdbc:mysql://remotemysql.com/" + NAME;
     private static final String USER = "SG15DDhe11";
     private static final String PASSWORD = "k1Ehx8akH4";
 
+    public   Valute getCurrencyByDateAndCode(String date, String currencyID) throws ParseException, ParserConfigurationException, IOException, SAXException {
 
-    @Override
-    public  Valute getCurrencyByDateAndCode(String date, String currencyID) {
-
-    try {
+        try {
         Class.forName("com.mysql.cj.jdbc.Driver");
     } catch (ClassNotFoundException e) {
         e.printStackTrace();
@@ -49,7 +47,7 @@ public class BDCurrencyReciver implements CurrencyReciver {
             return valute;
         }
         else {
-            return null;
+            return super.getCurrencyByDateAndCode(date, currencyID);
         }
     } catch (SQLException e) {
         System.out.println(e.getMessage());

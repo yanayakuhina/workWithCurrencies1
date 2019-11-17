@@ -10,7 +10,7 @@ public class Request {
     public static String makeARequest(String date) throws ParseException {
         String URL = "http://www.cbr.ru/scripts/XML_daily.asp";
         String stringDate = null;
-        
+
 
         SimpleDateFormat format = new SimpleDateFormat();
         format.applyPattern("yyyy-MM-dd");
